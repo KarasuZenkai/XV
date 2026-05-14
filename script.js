@@ -101,7 +101,7 @@ const translations = {
 
 const state = {
   lang: localStorage.getItem("invitation-lang") || "es",
-  counter: Number(localStorage.getItem("invitation-rsvp-count") || "0"),
+  counter: 0,
 };
 
 const elements = {
@@ -158,6 +158,19 @@ function applyLanguage() {
   elements.guestName.placeholder = placeholders.guestName;
   elements.guestMessage.placeholder = placeholders.guestMessage;
   elements.rsvpCount.textContent = String(state.counter);
+}
+
+async function loadRsvpCount() {
+  try {
+    const response = await fetch("/api/rsvp");
+    if (!response.ok) throw new Error("count-fetch-failed");
+    const data = await response.json();
+    state.counter = Number(data.count || 0);
+    elements.rsvpCount.textContent = String(state.counter);
+  } catch {
+    state.counter = Number(localStorage.getItem("invitation-rsvp-count") || "0");
+    elements.rsvpCount.textContent = String(state.counter);
+  }
 }
 
 function formatWhatsAppMessage() {
@@ -243,10 +256,29 @@ elements.copyAddressBtn.addEventListener("click", async () => {
 
 elements.rsvpForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  openWhatsApp();
-  state.counter += 1;
-  localStorage.setItem("invitation-rsvp-count", String(state.counter));
-  elements.rsvpCount.textContent = String(state.counter);
+  const payload = {
+    name: elements.guestName.value.trim(),
+    attending: elements.attendance.value,
+    guests: Number(elements.guestCount.value || 1),
+    message: elements.guestMessage.value.trim(),
+    language: state.lang,
+  };
+
+  fetch("/api/rsvp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then(async (response) => {
+      if (!response.ok) throw new Error("rsvp-save-failed");
+      const data = await response.json();
+      state.counter = Number(data.count || state.counter);
+      elements.rsvpCount.textContent = String(state.counter);
+      openWhatsApp();
+    })
+    .catch(() => {
+      openWhatsApp();
+    });
 });
 
 window.addEventListener("load", async () => {
@@ -256,5 +288,7 @@ window.addEventListener("load", async () => {
     // Browsers can block autoplay until the first user gesture.
   }
 });
+
+loadRsvpCount();
 
 applyLanguage();
