@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XV Años | Lilliana Rose Ramírez</title>
+    <meta
+      name="description"
+      content="Invitación digital para los XV años de Lilliana Rose Ramírez."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb bg-orb--one"></div>
+    <div class="bg-orb bg-orb--two"></div>
+
+    <main class="page-shell">
+      <section class="hero card">
+        <div class="hero__top">
+          <div class="lang-switch" aria-label="Language switch">
+            <button class="lang-switch__btn is-active" data-lang-btn="es">ES</button>
+            <button class="lang-switch__btn" data-lang-btn="en">EN</button>
+          </div>
+          <button class="music-btn" id="musicBtn" type="button">
+            <span class="music-btn__icon">♪</span>
+            <span id="musicLabel" data-i18n="musicButton">Música</span>
+          </button>
+        </div>
+
+        <div class="hero__content">
+          <p class="eyebrow" data-i18n="eyebrow">XV Años</p>
+          <h1 class="title">Lilliana Rose Ramírez</h1>
+          <p class="subtitle" data-i18n="subtitle">
+            Sábado 20 de junio de 2026
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#rsvp" data-i18n="ctaConfirm">
+              Confirmar asistencia
+            </a>
+            <a class="btn btn--secondary" href="#location" data-i18n="ctaLocation">
+              Ver ubicación
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__gallery">
+          <div class="gallery-grid">
+            <figure class="gallery-grid__item gallery-grid__item--large">
+              <img src="./invitación/IMG_3248.JPG" alt="Lilliana Rose Ramírez" />
+            </figure>
+            <figure class="gallery-grid__item">
+              <img src="./invitación/IMG_3237.JPG" alt="Lilliana Rose Ramírez" />
+            </figure>
+            <figure class="gallery-grid__item">
+              <img src="./invitación/IMG_3223.JPG" alt="Lilliana Rose Ramírez" />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-grid">
+        <article class="card info-card">
+          <p class="card-label" data-i18n="parentsLabel">Papás de la quinceañera</p>
+          <h2 data-i18n="parentsTitle">Lilliana Rose Ramírez</h2>
+          <p data-i18n="parentsBody" class="preline">
+            Acompañada de su abuelita y padres.
+          </p>
+          <p data-i18n="familyBlock" class="preline">
+            Tenemos el honor de invitarles a celebrar los XV Años.
+            Lilliana Rose Ramírez
+            Acompañada de su abuelita y padres:
+            Abuelita: Teresa Ramírez
+            Padres: Naomi Ramírez
+            Kristian Ramírez
+          </p>
+        </article>
+
+        <article class="card info-card">
+          <p class="card-label" data-i18n="dateLabel">Fecha</p>
+          <h2 data-i18n="dateTitle">20 de junio de 2026</h2>
+          <p data-i18n="dateBody" class="preline">
+            ¿Cuándo y dónde?
+            A continuación encontrarás el horario y ubicación del evento, así como un botón directo a Google Maps, para que te sea más fácil llegar.
+            7658 Olive Tree Ln
+            Highland, CA. 92335
+            4 pm a 10 pm
+          </p>
+        </article>
+
+        <article class="card info-card">
+          <p class="card-label" data-i18n="musicLabel">Canción especial</p>
+          <h2 data-i18n="musicTitle">“No crezcas más” - Tercer Cielo</h2>
+          <p data-i18n="musicBody">
+            La sección musical está lista para acompañar la experiencia.
+          </p>
+        </article>
+      </section>
+
+      <section class="card section-card" id="story">
+        <div class="section-heading">
+          <p class="card-label" data-i18n="galleryLabel">Fotografías</p>
+          <h2 data-i18n="galleryTitle">Una celebración llena de luz y azul rey</h2>
+        </div>
+
+        <div class="photo-strip">
+          <img src="./invitación/IMG_3225.JPG" alt="Fotografía de Lilliana Rose Ramírez" />
+          <img src="./invitación/IMG_3232.JPG" alt="Fotografía de Lilliana Rose Ramírez" />
+          <img src="./invitación/IMG_3243.JPG" alt="Fotografía de Lilliana Rose Ramírez" />
+          <img src="./invitación/IMG_3245.JPG" alt="Fotografía de Lilliana Rose Ramírez" />
+        </div>
+      </section>
+
+      <section class="info-grid info-grid--two">
+        <article class="card info-card">
+          <p class="card-label" data-i18n="giftsLabel">Regalos</p>
+          <h2 data-i18n="giftsTitle">Tu serás participe de mi próximo sueño</h2>
+          <p data-i18n="giftsBody" class="preline">¡Lluvia de sobres!</p>
+        </article>
+
+        <article class="card info-card">
+          <p class="card-label" data-i18n="dressLabel">Código de vestimenta</p>
+          <h2 data-i18n="dressTitle">Semi-formal</h2>
+          <p data-i18n="dressBody" class="preline">
+            Colores reservados para la quinceañera
+            Todos tonos de azul
+          </p>
+        </article>
+      </section>
+
+      <section class="card section-card" id="location">
+        <div class="section-heading">
+          <p class="card-label" data-i18n="locationLabel">Ubicación de la fiesta</p>
+          <h2>7658 Olive Tree Ln, Highland, CA 92335</h2>
+        </div>
+
+        <p class="section-copy" data-i18n="locationBody">
+          Presiona el botón para abrir la ruta en Google Maps.
+        </p>
+
+        <div class="section-actions">
+          <a
+            class="btn btn--primary"
+            id="mapsBtn"
+            href="https://www.google.com/maps/search/?api=1&query=7658+Olive+Tree+Ln+Highland+CA+92335"
+            target="_blank"
+            rel="noreferrer"
+            data-i18n="mapsButton"
+          >
+            Abrir Google Maps
+          </a>
+          <button class="btn btn--ghost" id="copyAddressBtn" type="button" data-i18n="copyAddress">
+            Copiar dirección
+          </button>
+        </div>
+      </section>
+
+      <section class="card section-card" id="rsvp">
+        <div class="section-heading">
+          <p class="card-label" data-i18n="rsvpLabel">Confirmación de asistencia</p>
+          <h2 data-i18n="rsvpTitle">Confirma por WhatsApp</h2>
+        </div>
+
+        <form class="rsvp-form" id="rsvpForm">
+          <label>
+            <span data-i18n="nameLabel">Nombre</span>
+            <input id="guestName" name="guestName" type="text" autocomplete="name" placeholder="Tu nombre" />
+          </label>
+
+          <label>
+            <span data-i18n="attendanceLabel">¿Asistirás?</span>
+            <select id="attendance" name="attendance">
+              <option value="yes" data-i18n="yesOption">Sí, asistiré</option>
+              <option value="no" data-i18n="noOption">No podré asistir</option>
+            </select>
+          </label>
+
+          <label>
+            <span data-i18n="guestsLabel">Número de invitados</span>
+            <input id="guestCount" name="guestCount" type="number" min="1" step="1" value="1" />
+          </label>
+
+          <label class="rsvp-form__message">
+            <span data-i18n="messageLabel">Mensaje opcional</span>
+            <textarea
+              id="guestMessage"
+              name="guestMessage"
+              rows="4"
+              placeholder="Escribe un mensaje corto"
+            ></textarea>
+          </label>
+
+          <div class="rsvp-form__actions">
+            <button class="btn btn--primary" type="submit" data-i18n="whatsappButton">
+              Confirmar por WhatsApp
+            </button>
+            <div class="counter-pill" aria-live="polite">
+              <span data-i18n="counterLabel">Confirmaciones registradas</span>
+              <strong id="rsvpCount">0</strong>
+            </div>
+          </div>
+        </form>
+
+        <p class="fine-print" data-i18n="rsvpNote">
+          El contador queda guardado en este dispositivo. Si quieres un conteo global para todos los invitados,
+          hay que conectarlo a una base de datos o Google Sheets.
+        </p>
+      </section>
+    </main>
+
+    <audio id="bgMusic" autoplay loop preload="auto" playsinline>
+      <source src="./invitación/musica.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
