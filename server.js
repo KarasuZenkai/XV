@@ -8,6 +8,25 @@ const rootDir = __dirname;
 const dataDir = path.join(rootDir, "data");
 const storePath = path.join(dataDir, "rsvp.json");
 
+function findExistingAsset(filePath) {
+  if (fs.existsSync(filePath)) return filePath;
+
+  const dir = path.dirname(filePath);
+  const base = path.basename(filePath);
+  const candidates = [
+    base,
+    base.toLowerCase(),
+    base.toUpperCase(),
+  ];
+
+  for (const candidate of candidates) {
+    const candidatePath = path.join(dir, candidate);
+    if (fs.existsSync(candidatePath)) return candidatePath;
+  }
+
+  return filePath;
+}
+
 function ensureStore() {
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir, { recursive: true });
@@ -137,7 +156,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (pathname.startsWith("/invitación/")) {
-    const assetPath = path.join(rootDir, pathname);
+    const assetPath = findExistingAsset(path.join(rootDir, pathname));
     serveFile(res, assetPath);
     return;
   }
