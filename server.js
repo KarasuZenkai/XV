@@ -160,8 +160,9 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  if (pathname.startsWith("/invitación/")) {
-    const assetPath = findExistingAsset(path.join(rootDir, pathname));
+  if (pathname.startsWith("/invitacion/") || pathname.startsWith("/invitación/")) {
+    const normalizedPathname = pathname.replace(/^\/invitación\//, "/invitacion/");
+    const assetPath = findExistingAsset(path.join(rootDir, normalizedPathname));
     serveFile(res, assetPath);
     return;
   }
