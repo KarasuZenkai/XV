@@ -1,10 +1,9 @@
 :root {
   --bg: #07111e;
   --bg-2: #0c1b31;
-  --panel: rgba(8, 18, 33, 0.78);
+  --panel: rgba(9, 18, 34, 0.8);
   --panel-strong: rgba(10, 22, 40, 0.92);
   --line: rgba(142, 184, 255, 0.16);
-  --line-strong: rgba(107, 164, 255, 0.24);
   --text: #eef4ff;
   --muted: #b3c6ea;
   --blue: #2c69ff;
@@ -15,6 +14,7 @@
   --radius-lg: 26px;
   --radius-md: 20px;
   --radius-sm: 14px;
+  --scroll-y: 0;
 }
 
 * {
@@ -35,6 +35,7 @@ body {
     radial-gradient(circle at 82% 20%, rgba(80, 123, 255, 0.16), transparent 20%),
     linear-gradient(160deg, var(--bg), var(--bg-2));
   overflow-x: hidden;
+  position: relative;
 }
 
 img {
@@ -63,23 +64,31 @@ textarea {
 
 .page-bg--butterflies {
   background:
-    linear-gradient(180deg, rgba(6, 14, 28, 0.78), rgba(6, 14, 28, 0.52)),
-    url("./foto2.jpg") center/cover no-repeat;
-  opacity: 0.32;
-  filter: saturate(1.02);
+    linear-gradient(180deg, rgba(6, 14, 28, 0.74), rgba(6, 14, 28, 0.34)),
+    url("./foto1.jpg") 0 0 / 34rem auto repeat;
+  opacity: 0.14;
+  mix-blend-mode: screen;
+  transform: translate3d(0, calc(var(--scroll-y) * 0.08px), 0);
+  animation: butterfly-drift 36s linear infinite;
 }
 
 .page-bg--glow {
   background:
     radial-gradient(circle at 50% 12%, rgba(99, 148, 255, 0.2), transparent 22%),
-    radial-gradient(circle at 78% 72%, rgba(71, 111, 255, 0.22), transparent 20%);
-  opacity: 0.85;
+    radial-gradient(circle at 78% 72%, rgba(71, 111, 255, 0.22), transparent 20%),
+    url("./foto2.jpg") center/cover no-repeat;
+  opacity: 0.18;
+  transform: translate3d(0, calc(var(--scroll-y) * -0.04px), 0);
+  filter: saturate(1.02);
+  animation: butterfly-breathe 22s ease-in-out infinite;
 }
 
-.page-bg--wings {
-  background: url("./foto1.jpg") right top/40rem auto no-repeat;
-  opacity: 0.06;
+.page-bg--ornament {
+  background: url("./foto3.jpg") center bottom / 22rem auto no-repeat;
+  opacity: 0.07;
+  transform: translate3d(0, calc(var(--scroll-y) * -0.1px), 0);
   mix-blend-mode: screen;
+  animation: butterfly-float 28s ease-in-out infinite;
 }
 
 .invitation {
@@ -92,8 +101,8 @@ textarea {
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .reveal.is-visible {
@@ -109,14 +118,14 @@ textarea {
 .rsvp-section,
 .music-bar {
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(12, 22, 40, 0.8), rgba(9, 18, 34, 0.84));
+  background: linear-gradient(180deg, rgba(11, 21, 39, 0.8), rgba(8, 16, 32, 0.86));
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
 }
 
 .hero {
   position: relative;
-  min-height: min(74vh, 860px);
+  min-height: min(76vh, 880px);
   border-radius: 40px;
   overflow: hidden;
 }
@@ -127,36 +136,28 @@ textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  transform: scale(1.01);
+  object-position: center center;
+  will-change: transform;
+  --transform-scale: 1.08;
+  transform: translate3d(0, calc(var(--scroll-y) * var(--parallax-speed, 0) * -1px), 0) scale(var(--transform-scale));
 }
 
 .hero__scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(6, 13, 25, 0.08) 10%, rgba(6, 13, 25, 0.55) 76%, rgba(6, 13, 25, 0.92) 100%),
-    linear-gradient(90deg, rgba(6, 13, 25, 0.7) 0%, rgba(6, 13, 25, 0.18) 46%, rgba(6, 13, 25, 0.62) 100%);
-}
-
-.hero__ornament {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: min(26vw, 18rem);
-  opacity: 0.14;
-  mix-blend-mode: screen;
-  filter: saturate(1.1) blur(0.2px);
+    linear-gradient(180deg, rgba(6, 13, 25, 0.12) 10%, rgba(6, 13, 25, 0.52) 72%, rgba(6, 13, 25, 0.94) 100%),
+    linear-gradient(90deg, rgba(6, 13, 25, 0.72) 0%, rgba(6, 13, 25, 0.16) 46%, rgba(6, 13, 25, 0.58) 100%);
 }
 
 .hero__content {
   position: absolute;
   left: clamp(18px, 4vw, 40px);
   bottom: clamp(18px, 4vw, 40px);
-  width: min(760px, calc(100% - 36px));
+  width: min(780px, calc(100% - 36px));
 }
 
-.hero__eyebrow,
+.hero__kicker,
 .section-kicker {
   margin: 0 0 8px;
   color: var(--blue-3);
@@ -168,21 +169,12 @@ textarea {
 
 .hero__title {
   margin: 0;
-  max-width: 8.5ch;
+  max-width: 8.8ch;
   font-family: "Great Vibes", cursive;
   font-size: clamp(4rem, 8vw, 7.8rem);
   line-height: 0.86;
   letter-spacing: 0.02em;
   text-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-}
-
-.hero__subtitle {
-  margin: 10px 0 0;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(1.2rem, 2.2vw, 2rem);
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: var(--text);
 }
 
 .split-grid,
@@ -194,13 +186,10 @@ textarea {
 }
 
 .split-grid {
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
 }
 
-.facts-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
+.facts-grid,
 .details-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -229,6 +218,9 @@ textarea {
   min-height: 380px;
   object-fit: cover;
   object-position: center top;
+  will-change: transform;
+  --transform-scale: 1;
+  transform: translate3d(0, calc(var(--scroll-y) * var(--parallax-speed, 0) * 1px), 0) scale(var(--transform-scale));
 }
 
 .panel__title,
@@ -249,8 +241,7 @@ textarea {
 .panel__copy,
 .fact-card__copy,
 .detail-card p,
-.rsvp-section p,
-.music-bar__copy {
+.music-bar__copy p {
   color: var(--muted);
   line-height: 1.7;
 }
@@ -260,21 +251,9 @@ textarea {
   margin: 16px 0 0;
 }
 
-.panel__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.meta-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: var(--text);
+.panel__copy--small {
+  margin-top: 10px;
+  color: rgba(238, 244, 255, 0.86);
 }
 
 .fact-card {
@@ -376,7 +355,7 @@ textarea {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-columns: 1.25fr 1fr 1fr;
   gap: 14px;
 }
 
@@ -390,7 +369,6 @@ textarea {
 }
 
 .gallery-card--wide {
-  grid-column: span 1;
   min-height: 360px;
 }
 
@@ -399,15 +377,25 @@ textarea {
   height: 100%;
   object-fit: cover;
   object-position: center;
+  will-change: transform;
+  --transform-scale: 1;
+  transform: translate3d(0, calc(var(--scroll-y) * var(--parallax-speed, 0) * -1px), 0) scale(var(--transform-scale));
+  transition: transform 0.4s ease;
 }
 
-.details-grid .detail-card {
-  padding: 24px;
+.hero:hover .hero__image {
+  --transform-scale: 1.11;
+}
+
+.panel--photo:hover img,
+.gallery-card:hover img {
+  --transform-scale: 1.03;
 }
 
 .detail-card {
   position: relative;
   overflow: hidden;
+  padding: 24px;
 }
 
 .detail-card h3 {
@@ -505,6 +493,38 @@ textarea {
   transform: translateY(-1px);
 }
 
+@keyframes butterfly-drift {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 0 0, 24rem 20rem;
+  }
+}
+
+@keyframes butterfly-breathe {
+  0%,
+  100% {
+    opacity: 0.16;
+  }
+
+  50% {
+    opacity: 0.22;
+  }
+}
+
+@keyframes butterfly-float {
+  0%,
+  100% {
+    transform: translate3d(0, calc(var(--scroll-y) * -0.1px), 0);
+  }
+
+  50% {
+    transform: translate3d(0, calc(var(--scroll-y) * -0.1px - 10px), 0);
+  }
+}
+
 @media (max-width: 980px) {
   .split-grid,
   .facts-grid,
@@ -586,7 +606,16 @@ textarea {
   .music-bar__button,
   .field input,
   .field select,
-  .field textarea {
+  .field textarea,
+  .gallery-card img,
+  .panel--photo img,
+  .hero__image {
     transition: none;
+  }
+
+  .hero__image,
+  .panel--photo img,
+  .gallery-card img {
+    transform: none;
   }
 }

@@ -1,5 +1,7 @@
 const state = {
   counter: 0,
+  scrollRaf: 0,
+  parallaxItems: [],
 };
 
 const elements = {
@@ -19,22 +21,22 @@ const whatsappPhone = "525532533605";
 
 function openWhatsApp() {
   const name = elements.guestName.value.trim() || "Invitado";
-  const attendance = elements.attendance.value === "yes" ? "Si, asistire" : "No podre asistir";
+  const attendance = elements.attendance.value === "yes" ? "Sí, asistiré" : "No podré asistir";
   const guests = Number(elements.guestCount.value || 1);
   const message = elements.guestMessage.value.trim();
 
   const lines = [
-    "Confirmacion de XV anos",
+    "Confirmación de XV años",
     `Nombre: ${name}`,
     `Asistencia: ${attendance}`,
-    `Numero de invitados: ${guests}`,
+    `Número de invitados: ${guests}`,
   ];
 
   if (message) {
     lines.push(`Mensaje: ${message}`);
   }
 
-  lines.push("Lilliana Rose Ramirez");
+  lines.push("Lilliana Rose Ramírez");
 
   const url = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(lines.join("\n"))}`;
   window.open(url, "_blank", "noopener,noreferrer");
@@ -95,15 +97,42 @@ function setupRevealAnimations() {
   items.forEach((item) => observer.observe(item));
 }
 
+function updateScrollState() {
+  state.scrollRaf = 0;
+  document.documentElement.style.setProperty("--scroll-y", String(window.scrollY || 0));
+}
+
+function requestScrollState() {
+  if (state.scrollRaf) return;
+  state.scrollRaf = window.requestAnimationFrame(updateScrollState);
+}
+
+function setupParallax() {
+  state.parallaxItems = Array.from(document.querySelectorAll("[data-parallax]"));
+
+  state.parallaxItems.forEach((item) => {
+    const speed = Number(item.dataset.parallax || 0);
+    item.style.setProperty("--parallax-speed", String(speed));
+  });
+
+  updateScrollState();
+  window.addEventListener("scroll", requestScrollState, { passive: true });
+  window.addEventListener("resize", requestScrollState, { passive: true });
+}
+
+function setMusicButtonState(isPlaying) {
+  elements.musicBtn.textContent = isPlaying ? "Pausar música" : "Reproducir música";
+}
+
 elements.copyAddressBtn.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(address);
-    elements.copyAddressBtn.textContent = "Direccion copiada";
+    elements.copyAddressBtn.textContent = "Dirección copiada";
     setTimeout(() => {
-      elements.copyAddressBtn.textContent = "Copiar direccion";
+      elements.copyAddressBtn.textContent = "Copiar dirección";
     }, 1800);
   } catch {
-    window.prompt("Copia la direccion", address);
+    window.prompt("Copia la dirección", address);
   }
 });
 
@@ -111,11 +140,13 @@ elements.musicBtn.addEventListener("click", async () => {
   if (elements.music.paused) {
     try {
       await elements.music.play();
+      setMusicButtonState(true);
     } catch {
       // Autoplay can be blocked until a user gesture; the manual button remains available.
     }
   } else {
     elements.music.pause();
+    setMusicButtonState(false);
   }
 });
 
@@ -127,11 +158,14 @@ elements.rsvpForm.addEventListener("submit", async (event) => {
 
 window.addEventListener("load", async () => {
   setupRevealAnimations();
+  setupParallax();
   loadCounter();
 
   try {
     await elements.music.play();
+    setMusicButtonState(true);
   } catch {
     // Browsers may block autoplay with sound.
+    setMusicButtonState(false);
   }
 });
