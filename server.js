@@ -148,6 +148,9 @@ const server = http.createServer(async (req, res) => {
     "/index.html": "index.html",
     "/styles.css": "styles.css",
     "/script.js": "script.js",
+    "/foto1.jpg": "foto1.jpg",
+    "/foto2.jpg": "foto2.jpg",
+    "/foto3.jpg": "foto3.jpg",
   };
 
   if (routes[pathname]) {
