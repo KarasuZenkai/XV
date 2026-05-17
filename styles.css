@@ -115,8 +115,7 @@ textarea {
 .fact-card,
 .gallery-section,
 .detail-card,
-.rsvp-section,
-.music-bar {
+.rsvp-section {
   border: 1px solid var(--line);
   background:
     linear-gradient(180deg, rgba(11, 21, 39, 0.94), rgba(8, 16, 32, 0.9)),
@@ -200,8 +199,7 @@ textarea {
 .panel,
 .fact-card,
 .detail-card,
-.rsvp-section,
-.music-bar {
+.rsvp-section {
   border-radius: var(--radius-xl);
 }
 
@@ -213,8 +211,7 @@ textarea {
 .panel--text,
 .fact-card,
 .detail-card,
-.rsvp-section,
-.music-bar {
+.rsvp-section {
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -223,8 +220,7 @@ textarea {
 .panel--text::after,
 .fact-card::after,
 .detail-card::after,
-.rsvp-section::before,
-.music-bar::before {
+.rsvp-section::before {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -245,8 +241,7 @@ textarea {
   opacity: 0.5;
 }
 
-.rsvp-section::before,
-.music-bar::before {
+.rsvp-section::before {
   opacity: 0.36;
 }
 
@@ -269,8 +264,7 @@ textarea {
 .panel__title,
 .fact-card__title,
 .section-title,
-.detail-card h3,
-.music-bar__copy h2 {
+.detail-card h3 {
   margin: 0;
   font-family: "Cormorant Garamond", serif;
   font-weight: 600;
@@ -283,8 +277,7 @@ textarea {
 
 .panel__copy,
 .fact-card__copy,
-.detail-card p,
-.music-bar__copy p {
+.detail-card p {
   color: var(--muted);
   line-height: 1.7;
 }
@@ -326,8 +319,7 @@ textarea {
 .panel--text > *,
 .fact-card > *,
 .detail-card > *,
-.rsvp-section > *,
-.music-bar > * {
+.rsvp-section > * {
   position: relative;
   z-index: 1;
 }
@@ -370,8 +362,7 @@ textarea {
   margin-top: 18px;
 }
 
-.btn,
-.music-bar__button {
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -393,8 +384,7 @@ textarea {
   box-shadow: 0 16px 34px rgba(44, 105, 255, 0.24);
 }
 
-.btn--ghost,
-.music-bar__button {
+.btn--ghost {
   color: var(--text);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -409,21 +399,27 @@ textarea {
 }
 
 .gallery-section,
-.rsvp-section,
-.music-bar {
+.rsvp-section {
   margin-top: 18px;
   padding: clamp(20px, 4vw, 34px);
 }
 
+.gallery-section {
+  padding: clamp(12px, 2vw, 18px);
+}
+
 .gallery-grid {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
   gap: 14px;
+  align-items: stretch;
 }
 
 .gallery-card {
   margin: 0;
-  min-height: 250px;
+  height: clamp(520px, 62vh, 760px);
+  min-height: 520px;
+  aspect-ratio: 4 / 5;
   border-radius: 22px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -431,11 +427,11 @@ textarea {
 }
 
 .gallery-card--wide {
-  min-height: 360px;
+  aspect-ratio: 5 / 6;
 }
 
 .gallery-card--tall {
-  min-height: 360px;
+  aspect-ratio: 4 / 6;
 }
 
 .gallery-card img {
@@ -444,7 +440,7 @@ textarea {
   object-fit: cover;
   object-position: center;
   will-change: transform;
-  --transform-scale: 1;
+  --transform-scale: 1.08;
   transform: translate3d(0, calc(var(--scroll-y) * var(--parallax-speed, 0) * -1px), 0) scale(var(--transform-scale));
   transition: transform 0.4s ease;
 }
@@ -543,19 +539,6 @@ textarea {
   font-size: 1.1rem;
 }
 
-.music-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.music-bar__copy h2 {
-  margin-top: 4px;
-  font-size: clamp(1.9rem, 3vw, 2.8rem);
-}
-
-.music-bar__button:hover,
 .btn:hover {
   transform: translateY(-1px);
 }
@@ -613,12 +596,11 @@ textarea {
     grid-template-columns: 1fr;
   }
 
-  .gallery-card--wide {
-    min-height: 280px;
-  }
-
+  .gallery-card,
+  .gallery-card--wide,
   .gallery-card--tall {
-    min-height: 280px;
+    height: clamp(420px, 62vh, 620px);
+    min-height: 420px;
   }
 
   .hero {
@@ -649,14 +631,8 @@ textarea {
   .panel,
   .fact-card,
   .detail-card,
-  .rsvp-section,
-  .music-bar {
+  .rsvp-section {
     border-radius: 24px;
-  }
-
-  .music-bar {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .rsvp-form {
@@ -669,8 +645,7 @@ textarea {
     align-items: flex-start;
   }
 
-  .btn,
-  .music-bar__button {
+  .btn {
     width: 100%;
   }
 
@@ -688,7 +663,6 @@ textarea {
   .reveal,
   .reveal.is-visible,
   .btn,
-  .music-bar__button,
   .field input,
   .field select,
   .field textarea,

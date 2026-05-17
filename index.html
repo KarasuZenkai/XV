@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=20260516-pathfix" />
+    <link rel="stylesheet" href="./styles.css?v=20260516-final" />
   </head>
   <body>
     <div class="page-bg page-bg--butterflies" aria-hidden="true"></div>
@@ -111,11 +111,6 @@
       </section>
 
       <section class="gallery-section reveal" aria-label="Galería">
-        <div class="section-heading">
-          <p class="section-kicker">Galería</p>
-          <h2 class="section-title">Un día lleno de luz, azul y mariposas</h2>
-        </div>
-
         <div class="gallery-grid">
           <figure class="gallery-card gallery-card--wide">
             <img src="./invitacion/IMG_3243.jpg" alt="Lilliana Rose Ramírez" data-parallax="0.04" />
@@ -190,22 +185,12 @@
           </div>
         </form>
       </section>
-
-      <footer class="music-bar reveal">
-        <div class="music-bar__copy">
-          <p class="section-kicker">Música</p>
-          <h2>No crezcas más - Tercer Cielo</h2>
-        </div>
-        <button class="music-bar__button" id="musicBtn" type="button">
-          Reproducir música
-        </button>
-      </footer>
     </main>
 
-    <audio id="bgMusic" autoplay loop preload="auto" playsinline>
+    <audio id="bgMusic" autoplay loop preload="auto" playsinline aria-hidden="true">
       <source src="./invitacion/musica.mp3" type="audio/mpeg" />
     </audio>
 
-    <script src="./script.js?v=20260516-pathfix"></script>
+    <script src="./script.js?v=20260516-final"></script>
   </body>
 </html>

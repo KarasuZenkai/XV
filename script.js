@@ -2,10 +2,10 @@ const state = {
   counter: 0,
   scrollRaf: 0,
   parallaxItems: [],
+  audioUnlocked: false,
 };
 
 const elements = {
-  musicBtn: document.getElementById("musicBtn"),
   music: document.getElementById("bgMusic"),
   copyAddressBtn: document.getElementById("copyAddressBtn"),
   rsvpForm: document.getElementById("rsvpForm"),
@@ -120,8 +120,51 @@ function setupParallax() {
   window.addEventListener("resize", requestScrollState, { passive: true });
 }
 
-function setMusicButtonState(isPlaying) {
-  elements.musicBtn.textContent = isPlaying ? "Pausar música" : "Reproducir música";
+async function playMusic() {
+  if (!elements.music || state.audioUnlocked) return;
+
+  try {
+    elements.music.volume = 0.8;
+    elements.music.muted = false;
+    await elements.music.play();
+    state.audioUnlocked = true;
+    removeAudioUnlockListeners();
+  } catch {
+    state.audioUnlocked = false;
+  }
+}
+
+function removeAudioUnlockListeners() {
+  document.removeEventListener("pointerdown", playMusic);
+  document.removeEventListener("touchstart", playMusic);
+  document.removeEventListener("keydown", playMusic);
+  document.removeEventListener("scroll", playMusic);
+  document.removeEventListener("visibilitychange", handleVisibilityAudio);
+}
+
+function handleVisibilityAudio() {
+  if (!document.hidden) {
+    playMusic();
+  }
+}
+
+function setupAudioAutoplay() {
+  if (!elements.music) return;
+
+  elements.music.autoplay = true;
+  elements.music.loop = true;
+  elements.music.preload = "auto";
+  elements.music.load();
+
+  playMusic();
+  window.setTimeout(playMusic, 300);
+  window.setTimeout(playMusic, 1200);
+
+  document.addEventListener("pointerdown", playMusic, { once: true, passive: true });
+  document.addEventListener("touchstart", playMusic, { once: true, passive: true });
+  document.addEventListener("keydown", playMusic, { once: true });
+  document.addEventListener("scroll", playMusic, { once: true, passive: true });
+  document.addEventListener("visibilitychange", handleVisibilityAudio);
 }
 
 elements.copyAddressBtn.addEventListener("click", async () => {
@@ -136,20 +179,6 @@ elements.copyAddressBtn.addEventListener("click", async () => {
   }
 });
 
-elements.musicBtn.addEventListener("click", async () => {
-  if (elements.music.paused) {
-    try {
-      await elements.music.play();
-      setMusicButtonState(true);
-    } catch {
-      // Autoplay can be blocked until a user gesture; the manual button remains available.
-    }
-  } else {
-    elements.music.pause();
-    setMusicButtonState(false);
-  }
-});
-
 elements.rsvpForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   await saveRsvp();
@@ -159,13 +188,6 @@ elements.rsvpForm.addEventListener("submit", async (event) => {
 window.addEventListener("load", async () => {
   setupRevealAnimations();
   setupParallax();
+  setupAudioAutoplay();
   loadCounter();
-
-  try {
-    await elements.music.play();
-    setMusicButtonState(true);
-  } catch {
-    // Browsers may block autoplay with sound.
-    setMusicButtonState(false);
-  }
 });
